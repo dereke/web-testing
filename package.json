@@ -1,0 +1,27 @@
+{
+  "name": "web-testing",
+  "version": "1.0.0",
+  "description": "A demo of how to test web sites",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start"
+  },
+  "keywords": [
+    "web",
+    "test",
+    "karma"
+  ],
+  "author": "Derek Ekins",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-monkey": "^1.13.0",
+    "browserify": "^11.0.0",
+    "chai": "^3.2.0",
+    "html2js-browserify": "^1.0.0",
+    "karma": "^0.13.3",
+    "karma-browserify": "^4.2.1",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.0.2"
+  }
+}
