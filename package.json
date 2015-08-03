@@ -18,10 +18,14 @@
     "browserify": "^11.0.0",
     "chai": "^3.2.0",
     "html2js-browserify": "^1.0.0",
-    "karma": "^0.13.3",
+    "karma": "^0.12.36",
     "karma-browserify": "^4.2.1",
     "karma-chrome-launcher": "^0.2.0",
     "karma-mocha": "^0.2.0",
     "karma-mocha-reporter": "^1.0.2"
+  },
+  "dependencies": {
+    "browserify-middleware": "^7.0.0",
+    "express": "^4.13.3"
   }
 }

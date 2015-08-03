@@ -1,29 +1,6 @@
-var browser = require('browser-monkey');
 var createApp = require('../lib/app');
-var tasks = browser.extend({
-  all: function(){
-    return this.find('ul.tasks li');
-  },
-
-  first: function(){
-    return this.find('ul.tasks li:first-child').component({
-      complete: function(){
-        return this.find('button.complete');
-      }
-    });
-  }
-});
-
-function mountApp(app){
-  var testContainer = document.querySelector('div#test');
-  if (testContainer) {
-    testContainer.parentNode.removeChild(testContainer);
-  }
-  testContainer = document.createElement('div');
-  testContainer.id = 'test';
-  testContainer.appendChild(app);
-  document.body.appendChild(testContainer);
-}
+var mountApp = require('./mountApp');
+var tasks = require('./tasksPage');
 
 describe('list of tasks to complete', function(){
   var taskList = [
@@ -43,15 +20,24 @@ describe('list of tasks to complete', function(){
     ]});
   });
 
-  it('removes a task once it has been completed', function(){
-    var app = createApp({tasks: taskList});
-    mountApp(app);
-
-    return tasks.first().complete().click().then(function(){
-      return tasks.all().shouldHave({text: [
-        'Implement feature',
-        'Refactor'
-      ]});
+  describe('complete', function(){
+    beforeEach(function(){
+      var app = createApp({tasks: taskList});
+      mountApp(app);
     });
+
+    it('each task has a complete button', function(){
+      return tasks.all().find('button').shouldHave({text: ['Complete', 'Complete', 'Complete']})
+    });
+
+    it('removes a task once it has been completed', function(){
+      return tasks.first().complete().click().then(function(){
+        return tasks.all().shouldHave({text: [
+          'Implement feature',
+          'Refactor'
+        ]});
+      });
+    });
+
   });
 });

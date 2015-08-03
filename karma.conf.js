@@ -3,14 +3,12 @@ module.exports = function(config) {
     basePath: '',
     frameworks: ['browserify', 'mocha'],
     files: [
-      'test/globals.js',
       'test/**/*Spec.js'
     ],
     exclude: [
       'test/**/*.sw?'
     ],
     preprocessors: {
-      'test/globals.js': ['browserify'],
       'test/**/*Spec.js': ['browserify']
     },
     browserify: {
@@ -18,9 +16,9 @@ module.exports = function(config) {
       transform: ['html2js-browserify']
     },
     proxies: {
-      '/google': 'http://google.co.uk'
+      '/': 'http://localhost:3000/'
     },
-    urlRoot: '/',
+    urlRoot: '/karma/',
     browserNoActivityTimeout: 180000,
     reporters: ['mocha'],
     port: 9876,
