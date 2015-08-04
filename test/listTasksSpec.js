@@ -37,5 +37,13 @@ describe('list of tasks', function(){
         'chocolate'
       ]});
     });
+
+    it('removes a task when it is completed', function(){
+      mountApp(createApp, {url: '/shopping'});
+
+      return tasks.task('bread').completeButton().click().then(function(){
+        return tasks.names().shouldHave({text: ['milk', 'chocolate']});
+      })
+    });
   })
 });
