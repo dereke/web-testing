@@ -1,43 +1,41 @@
 var createApp = require('../lib/app');
 var mountApp = require('./mountApp');
 var tasks = require('./tasksPage');
+var createServer = require('mock-xhr-router');
 
-describe('list of tasks to complete', function(){
-  var taskList = [
-    'Write tests',
-    'Implement feature',
-    'Refactor'
-  ];
+describe('list of tasks', function(){
+  var server;
+  var taskLists;
 
-  it('shows each task', function(){
-    var app = createApp({tasks: taskList});
-    mountApp(app);
+  beforeEach(function () {
+    server = createServer();
+    taskLists = {};
 
-    return tasks.all().shouldHave({text: [
-      'Write tests',
-      'Implement feature',
-      'Refactor'
-    ]});
+    server.get('/tasks/:name', function (request) {
+      return {
+        status: 200,
+        body: taskLists[request.params.name]
+      };
+    });
   });
 
-  describe('complete', function(){
-    beforeEach(function(){
-      var app = createApp({tasks: taskList});
-      mountApp(app);
+  context('with a shopping list', function () {
+    beforeEach(function () {
+      taskLists.shopping = [
+        'milk',
+        'bread',
+        'chocolate'
+      ];
     });
 
-    it('each task has a complete button', function(){
-      return tasks.all().find('button').shouldHave({text: ['Complete', 'Complete', 'Complete']})
-    });
+    it('shows each task', function() {
+      mountApp(createApp, {url: '/shopping'});
 
-    it('removes a task once it has been completed', function(){
-      return tasks.first().complete().click().then(function(){
-        return tasks.all().shouldHave({text: [
-          'Implement feature',
-          'Refactor'
-        ]});
-      });
+      return tasks.names().shouldHave({text: [
+        'milk',
+        'bread',
+        'chocolate'
+      ]});
     });
-
-  });
+  })
 });

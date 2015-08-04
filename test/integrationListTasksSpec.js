@@ -1,19 +1,17 @@
-var createApp = require('./serverApp');
-var mountApp = require('./mountApp');
+var mountSite = require('./mountSite');
 var tasksPage = require('./tasksPage');
 
 describe('integration test', function(){
   it('shows each task', function(){
-    var app = createApp();
-    mountApp(app);
-    var tasks = tasksPage.scope(app);
-    var allTasks = tasks.all();
+    var page = mountSite({url: '/shopping'});
+    var tasks = tasksPage.scope(page);
+    var allTasks = tasks.names();
 
     return Promise.all([
       allTasks.shouldHave({text: [
-        'Register domain name',
-        'Provision server',
-        'Deploy application'
+        'cows',
+        'pigs',
+        'vegetables'
       ]}),
       allTasks.shouldNotHave({text: 'Something else'})
     ]);

@@ -12,8 +12,7 @@ module.exports = function(config) {
       'test/**/*Spec.js': ['browserify']
     },
     browserify: {
-      debug: true,
-      transform: ['html2js-browserify']
+      debug: true
     },
     proxies: {
       '/': 'http://localhost:3000/'
@@ -23,7 +22,7 @@ module.exports = function(config) {
     reporters: ['mocha'],
     port: 9876,
     colors: true,
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_WARN,
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false

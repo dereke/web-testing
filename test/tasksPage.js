@@ -1,16 +1,7 @@
 var browser = require('browser-monkey');
 
-module.exports = browser.extend({
-  all: function(){
-    return this.find('ul.tasks li');
-  },
-
-  first: function(){
-    return this.find('ul.tasks li:first-child').component({
-      complete: function(){
-        return this.find('button.complete');
-      }
-    });
+module.exports = browser.component({
+  names: function(){
+    return this.find('ul.tasks li .name');
   }
 });
-
