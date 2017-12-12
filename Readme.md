@@ -6,4 +6,10 @@ The application under test is a simple to do list.
 # Getting started
 After cloning this repo, run `npm install`.
 
-Then run `npm test` to start the tests.
+The project contains an example of an integration test. While not ideal you need to start the server for this to pass.
+
+`npm start`
+
+and then
+
+`npm test`
